@@ -16,6 +16,6 @@ host.web.io.sockets.on('connection', function (socket) {
   server.trigger('connection', socket);
 
   socket.on('*', function (event) {
-    server.trigger(event.name, event.args[0]);
+    server.trigger(event.name, socket, event.args[0]);
   });
 });

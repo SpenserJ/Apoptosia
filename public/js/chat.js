@@ -1,24 +1,23 @@
 var ChatModel = function() {
-  this.messages = ko.observableArray([]);
-  this.chatInput = ko.observable('');
+  var self = this;
+  self.messages = ko.observableArray([]);
+  self.inputMessage = ko.observable('');
 
-  this.sendChat = function sendChat() {
-    if (this.chatInput() !== '') {
-      socket.emit('chat', { username: 'client', message: this.chatInput() });
-      this.chatInput('');
+  self.sendMessage = function sendMessage() {
+    if (tcKnockout.authentication.authenticated() === true && self.inputMessage() !== '') {
+      socket.emit('chat', { username: tcKnockout.authentication.username(), message: self.inputMessage() });
+      self.inputMessage('');
     }
   };
 };
 
-var chat = new ChatModel();
-
-ko.applyBindings(chat);
-
 socket.on('chat', function (data) {
-    console.log(data);
-  chat.messages.push(data);
+  tcKnockout.chat.messages.push(data);
 });
 
-function sendChat(e) {
-  console.log('yay');
-}
+socket.on('chat.member.joined', function (data) {
+  tcKnockout.chat.messages.push({
+    username: 'Turing Compete',
+    message: data.username + ' has joined the chat!'
+  });
+});

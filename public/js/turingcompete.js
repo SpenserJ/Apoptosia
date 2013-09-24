@@ -1,4 +1,7 @@
-var socket = io.connect();
-socket.on('version', function (data) {
-  console.log(data);
-});
+var TCModel = function TCModel() {
+  this.chat = new ChatModel();
+  this.authentication = new AuthenticationModel();
+};
+
+var tcKnockout = new TCModel();
+ko.applyBindings(tcKnockout);

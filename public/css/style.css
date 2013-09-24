@@ -1,0 +1,14 @@
+body {
+  margin: 16px;
+}
+
+#chat {
+  width: 256px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  padding: 8px;
+}
+
+#chat-input {
+  width: 252px;
+}

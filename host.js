@@ -12,10 +12,24 @@ server.sandboxedServer.scope.TC.broadcast = function broadcast(event, data) {
   host.web.io.sockets.emit(event, data);
 };
 
-host.web.io.sockets.on('connection', function (socket) {
+var socketLookup = {};
+
+host.web.io.sockets.on('connection', function (rawSocket) {
+  if (typeof socketLookup[rawSocket.id] === 'undefined') {
+    socketLookup[rawSocket.id] = {
+      emit: function(name, data) {
+        rawSocket.emit(name, data);
+      }
+    };
+  }
+  var socket = socketLookup[rawSocket.id];
   server.trigger('connection', socket);
 
-  socket.on('*', function (event) {
+  rawSocket.on('disconnect', function() {
+    server.trigger('disconnect', socket);
+  });
+
+  rawSocket.on('*', function (event) {
     server.trigger(event.name, socket, event.args[0]);
   });
 });

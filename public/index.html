@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Turing Compete</title>
+</head>
+<body>
+  <div id="chat" data-bind="foreach: messages">
+    <span class="username" data-bind="text: $data.username">&nbsp;</span> says:
+    <p class="message" data-bind="text: $data.message"></p>
+  </div>
+  <form data-bind="submit: sendChat">
+    <input type="text" id="chat_input" data-bind="value: chatInput, valueUpdate: 'afterkeyup', returnAction: sendChat">
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+  <script src="/js/turingcompete.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/ko/bindingHandler.return.js"></script>
+</body>
+</html>

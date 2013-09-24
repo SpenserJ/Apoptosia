@@ -21,3 +21,10 @@ socket.on('chat.member.joined', function (data) {
     message: data.username + ' has joined the chat!'
   });
 });
+
+socket.on('chat.member.left', function (data) {
+  tcKnockout.chat.messages.push({
+    username: 'Turing Compete',
+    message: data.username + ' has left the chat!'
+  });
+});

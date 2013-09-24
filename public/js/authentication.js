@@ -13,3 +13,7 @@ var AuthenticationModel = function AuthenticationModel() {
 socket.on('login.successful', function() {
   tcKnockout.authentication.authenticated(true);
 });
+
+socket.on('login.failed', function(data) {
+  alert(data.error);
+});

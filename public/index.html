@@ -29,61 +29,54 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
   <script src="/js/ko/bindingHandler.return.js"></script>
+
+  <!-- melonJS Library -->
+  <script type="text/javascript" src="/js/melonJS-0.9.8-min.js"></script>
+  <script type="text/javascript" src="/js/plugins/debugPanel.js"></script>
+  <script type="text/javascript" src="/js/game.js"></script>
+  <script type="text/javascript" src="/js/resources.js"></script>
+  <script type="text/javascript" src="/js/entities/entities.js"></script>
+  <script type="text/javascript" src="/js/screens/title.js"></script>
+  <script type="text/javascript" src="/js/screens/play.js"></script>
+  <!-- Bootstrap & Mobile optimization tricks -->
+  <script type="text/javascript">
+    window.onReady(function onReady() {
+      game.onload();
+
+      // Mobile browser hacks
+      if (me.sys.isMobile && !navigator.isCocoonJS) {
+        // Prevent the webview from moving on a swipe
+        window.document.addEventListener("touchmove", function (e) {
+          e.preventDefault();
+          window.scroll(0, 0);
+          return false;
+        }, false);
+
+        // Scroll away mobile GUI
+        (function () {
+          window.scrollTo(0, 1);
+          me.video.onresize(null);
+        }).defer();
+
+        me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+          window.scrollTo(0, 1);
+        })
+
+        // Retina viewport settings
+        if (window.devicePixelRatio > 1) {
+          document.getElementById("viewport").setAttribute(
+            "content",
+            "width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0"
+          );
+        }
+      }
+    });
+  </script>
+
   <script src="/js/socket.js"></script>
   <script src="/js/authentication.js"></script>
   <script src="/js/chat.js"></script>
   <script src="/js/player.js"></script>
   <script src="/js/turingcompete.js"></script>
-
-
-		<!-- melonJS Library -->
-		<script type="text/javascript" src="/js/melonJS-0.9.8-min.js"></script>
-        
-		<!-- Plugin(s) -->
-		<script type="text/javascript" src="/js/plugins/debugPanel.js"></script>
-		
-		<!-- Game Scripts -->
-        <script type="text/javascript" src="/js/game.js"></script>
-        <script type="text/javascript" src="/js/resources.js"></script>
-		
-		<script type="text/javascript" src="/js/entities/entities.js"></script>
-
-        <script type="text/javascript" src="/js/screens/title.js"></script>
-        <script type="text/javascript" src="/js/screens/play.js"></script>
-		
-		<!-- Bootstrap & Mobile optimization tricks -->
-		<script type="text/javascript">
-			window.onReady(function onReady() {
-				game.onload();
-
-				// Mobile browser hacks
-				if (me.sys.isMobile && !navigator.isCocoonJS) {
-					// Prevent the webview from moving on a swipe
-					window.document.addEventListener("touchmove", function (e) {
-						e.preventDefault();
-						window.scroll(0, 0);
-						return false;
-					}, false);
-
-					// Scroll away mobile GUI
-					(function () {
-						window.scrollTo(0, 1);
-						me.video.onresize(null);
-					}).defer();
-
-					me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
-						window.scrollTo(0, 1);
-					})
-
-					// Retina viewport settings
-					if (window.devicePixelRatio > 1) {
-						document.getElementById("viewport").setAttribute(
-							"content",
-							"width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0"
-						);
-					}
-				}
-			});
-		</script>
 </body>
 </html>

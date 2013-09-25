@@ -37,11 +37,6 @@ var game = {
         me.sys.gravity = 0;
         me.sys.pauseOnBlur = false;
 
-        me.input.bindKey(me.input.KEY.A, "left");
-        me.input.bindKey(me.input.KEY.D, "right");
-        me.input.bindKey(me.input.KEY.W, "up");
-        me.input.bindKey(me.input.KEY.S, "down");
-
        // Debug the hitboxes
        me.debug.renderHitBox = true;
 

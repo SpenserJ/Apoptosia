@@ -8,6 +8,7 @@ game.PokemonEntity = me.ObjectEntity.extend({
         image: "pokemon",
       };
     this.parent(x, y, settings);
+    this.destination = { x: this.pos.x + this.hWidth, y: this.pos.y + this.hHeight };
 
     function getAnimation(direction) {
       var offset = 0;
@@ -28,6 +29,42 @@ game.PokemonEntity = me.ObjectEntity.extend({
     this.renderable.setCurrentAnimation("still");
     //this.collidable = false;
   },
+
+  move: function(x, y) {
+    this.destination = { x: x, y: y };
+
+    var angle = this.angleToPoint(this.destination);
+    var distance = this.distanceToPoint(this.destination);
+    if (distance < 1) {
+      this.vel.x = 0;
+      this.vel.y = 0;
+    } else {
+      this.vel.x = Math.cos(angle);
+      this.vel.y = Math.sin(angle);
+      var minAngle = Math.PI / 4;
+      var animation =  (-minAngle < angle && angle < minAngle) ? 'right' :
+                       (-minAngle*3 < angle && angle < -minAngle) ? 'up' :
+                       (minAngle < angle && angle < minAngle*3) ? 'down' :
+                       (minAngle*3 < angle || angle < -minAngle*3) ? 'left' :
+                       'still';
+      this.renderable.setCurrentAnimation(animation);
+    }
+    this.updateMovement();
+  },
+
+  update: function() {
+    var distance = this.distanceToPoint(this.destination);
+    if (distance < 1) {
+      this.vel.x = this.vel.y = 0;
+    }
+
+    this.updateMovement();
+
+    if (this.vel.x !== 0 || this.vel.y !== 0) {
+      this.parent();
+      return true;
+    }
+  }
 });
 
 game.PlayerEntity = game.PokemonEntity.extend({
@@ -37,30 +74,28 @@ game.PlayerEntity = game.PokemonEntity.extend({
   },
 
   update: function() {
-    this.vel.x = 0;
-    this.vel.y = 0;
+    var distance = this.distanceToPoint(this.destination);
+    if (distance > 1) {
+      return this.parent();
+    }
 
+    var change = { x: 0, y: 0 };
     if (me.input.isKeyPressed('left')) {
-      this.vel.x -= 1;
-      this.renderable.setCurrentAnimation('left');
+      change.x = -32;
     } else if (me.input.isKeyPressed('right')) {
-      this.vel.x += 1;
-      this.renderable.setCurrentAnimation('right');
+      change.x = +32;
     } else if (me.input.isKeyPressed('up')) {
-      this.vel.y -= 1;
-      this.renderable.setCurrentAnimation('up');
+      change.y = -32;
     } else if (me.input.isKeyPressed('down')) {
-      this.vel.y += 1;
-      this.renderable.setCurrentAnimation('down');
+      change.y = +32;
     }
-
-    this.updateMovement();
-    
-
-    if (this.vel.x !== 0 || this.vel.y !== 0) {
-      socket.emit('game.move', this.pos);
-      this.parent();
-      return true;
+    if (change.x !== 0 || change.y !== 0) {
+      var movement = {
+        x: this.pos.x + change.x + this.hWidth,
+        y: this.pos.y + change.y + this.hHeight
+      };
+      socket.emit('game.move', movement);
     }
+    return this.parent();
   }
 });

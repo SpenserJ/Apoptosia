@@ -27,7 +27,6 @@ game.PokemonEntity = me.ObjectEntity.extend({
     this.renderable.addAnimation('down', getAnimation('down'));
     this.renderable.addAnimation('right', getAnimation('right'));
     this.renderable.setCurrentAnimation("still");
-    //this.collidable = false;
   },
 
   move: function(x, y) {
@@ -65,10 +64,6 @@ game.PokemonEntity = me.ObjectEntity.extend({
       return true;
     }
     return false;
-  },
-
-  onCollision: function(res, obj) {
-    console.log(res, obj);
   },
 });
 

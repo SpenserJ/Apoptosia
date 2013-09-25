@@ -32,10 +32,6 @@ body {
 	-ms-interpolation-mode: nearest-neighbor;
 }
 
-body {
-  margin: 16px;
-}
-
 #chat {
   width: 256px;
   border-radius: 4px;

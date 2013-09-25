@@ -35,6 +35,7 @@ var game = {
     "loaded" : function () {
         me.state.set(me.state.PLAY, new game.PlayScreen());
         me.sys.gravity = 0;
+        me.sys.pauseOnBlur = false;
 
         me.input.bindKey(me.input.KEY.A, "left");
         me.input.bindKey(me.input.KEY.D, "right");

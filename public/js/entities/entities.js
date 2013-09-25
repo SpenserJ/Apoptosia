@@ -1,4 +1,4 @@
-game.PlayerEntity = me.ObjectEntity.extend({
+game.PokemonEntity = me.ObjectEntity.extend({
   init: function(x, y, pokeID) {
     var settings = {
         spritewidth: 32,
@@ -13,7 +13,6 @@ game.PlayerEntity = me.ObjectEntity.extend({
       var offset = 0;
       offset = (Math.floor((pokeID - 1) / 2) * 16);
       if (pokeID % 2 === 0) { offset += 2; }
-      console.log(offset);
       if (direction === 'still') { return [offset + 12]; }
       if (direction === 'left') { offset += 1; }
       else if (direction === 'down') { offset += 8; }
@@ -27,8 +26,14 @@ game.PlayerEntity = me.ObjectEntity.extend({
     this.renderable.addAnimation('down', getAnimation('down'));
     this.renderable.addAnimation('right', getAnimation('right'));
     this.renderable.setCurrentAnimation("still");
-    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     //this.collidable = false;
+  },
+});
+
+game.PlayerEntity = game.PokemonEntity.extend({
+  init: function(x, y, pokeID) {
+    this.parent(x, y, pokeID);
+    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
   },
 
   update: function() {
@@ -50,8 +55,10 @@ game.PlayerEntity = me.ObjectEntity.extend({
     }
 
     this.updateMovement();
+    
 
     if (this.vel.x !== 0 || this.vel.y !== 0) {
+      socket.emit('game.move', this.pos);
       this.parent();
       return true;
     }

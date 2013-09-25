@@ -19,11 +19,16 @@ TC.on('login', function (socket, data) {
 
   usernames.push(data.username);
   socket.username = data.username;
+  socket.pokeID = Math.floor(Math.random() * 155 + 1);
   socket.emit('login.successful');
   TC.broadcast('chat.member.joined', { username: data.username });
+  TC.broadcast('game.player.joined', { username: data.username, pokeID: socket.pokeID });
 });
 
 TC.on('chat', function (socket, data) {
-    console.log(socket);
   TC.broadcast('chat', data);
+});
+
+TC.on('game.move', function (socket, data) {
+  TC.broadcast('game.player.move', { username: socket.username, x: data.x, y: data.y });
 });

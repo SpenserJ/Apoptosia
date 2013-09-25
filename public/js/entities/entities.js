@@ -31,7 +31,7 @@ game.PokemonEntity = me.ObjectEntity.extend({
   },
 
   move: function(x, y) {
-    this.destination = { x: x, y: y };
+    this.destination = { x: x + this.hWidth, y: y + this.hHeight };
 
     var angle = this.angleToPoint(this.destination);
     var distance = this.distanceToPoint(this.destination);
@@ -79,22 +79,14 @@ game.PlayerEntity = game.PokemonEntity.extend({
       return this.parent();
     }
 
-    var change = { x: 0, y: 0 };
     if (me.input.isKeyPressed('left')) {
-      change.x = -32;
+      socket.emit('game.move', { direction: 'left' });
     } else if (me.input.isKeyPressed('right')) {
-      change.x = +32;
+      socket.emit('game.move', { direction: 'right' });
     } else if (me.input.isKeyPressed('up')) {
-      change.y = -32;
+      socket.emit('game.move', { direction: 'up' });
     } else if (me.input.isKeyPressed('down')) {
-      change.y = +32;
-    }
-    if (change.x !== 0 || change.y !== 0) {
-      var movement = {
-        x: this.pos.x + change.x + this.hWidth,
-        y: this.pos.y + change.y + this.hHeight
-      };
-      socket.emit('game.move', movement);
+      socket.emit('game.move', { direction: 'down' });
     }
     return this.parent();
   }

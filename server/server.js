@@ -43,7 +43,14 @@ TC.on('chat', function (socket, data) {
 });
 
 TC.on('game.move', function (socket, data) {
-  socket.x = data.x;
-  socket.y = data.y;
-  TC.broadcast('game.player.move', { username: socket.username, x: socket.x, y: data.y });
+  var offset = { x: 0, y: 0 };
+  switch (data.direction) {
+    case 'left':  offset.x = -32; break;
+    case 'right': offset.x = +32; break;
+    case 'up':    offset.y = -32; break;
+    case 'down':  offset.y = +32; break;
+  }
+  socket.x = socket.x + offset.x;
+  socket.y = socket.y + offset.y;
+  TC.broadcast('game.player.move', { username: socket.username, x: socket.x, y: socket.y });
 });

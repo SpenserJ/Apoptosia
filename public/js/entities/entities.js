@@ -64,7 +64,12 @@ game.PokemonEntity = me.ObjectEntity.extend({
       this.parent();
       return true;
     }
-  }
+    return false;
+  },
+
+  onCollision: function(res, obj) {
+    console.log(res, obj);
+  },
 });
 
 game.PlayerEntity = game.PokemonEntity.extend({

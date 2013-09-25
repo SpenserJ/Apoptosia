@@ -16,9 +16,6 @@ var game = {
 			});
 		}
 
-        // Initialize the audio.
-        me.audio.init("mp3,ogg");
-
         // Set a callback to run when loading is complete.
         me.loader.onload = this.loaded.bind(this);
      
@@ -36,9 +33,6 @@ var game = {
         me.state.set(me.state.PLAY, new game.PlayScreen());
         me.sys.gravity = 0;
         me.sys.pauseOnBlur = false;
-
-       // Debug the hitboxes
-       me.debug.renderHitBox = true;
 
         // Start the game.
         me.state.change(me.state.PLAY);

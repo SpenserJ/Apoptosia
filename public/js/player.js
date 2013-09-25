@@ -39,8 +39,9 @@ socket.on('game.player.joined', function(data) {
     return tcMelonSpritesToLoad.push(data);
   }
   var mode = (data.username === tcKnockout.authentication.username()) ? 'player': 'npc';
-  tcMelonSprites[data.username] = me.entityPool.newInstanceOf(mode, 64, 64, data.pokeID);
-  me.game.add(tcMelonSprites[data.username], 1001);
+  tcMelonSprites[data.username] =
+    me.entityPool.newInstanceOf(mode, data.x, data.y, data.pokeID);
+  me.game.add(tcMelonSprites[data.username], 2);
   me.game.sort();
 });
 

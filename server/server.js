@@ -30,12 +30,12 @@ TC.on('login', function (socket, data) {
 
   socket.username = data.username;
   socket.pokeID = Math.floor(Math.random() * 155 + 1);
-  socket.x = 64;
-  socket.y = 64;
+  socket.x = 320;
+  socket.y = 320;
   players[socket.username] = socket;
   socket.emit('login.successful');
   TC.broadcast('chat.member.joined', { username: socket.username });
-  TC.broadcast('game.player.joined', { username: socket.username, pokeID: socket.pokeID, x: 64, y: 64 });
+  TC.broadcast('game.player.joined', { username: socket.username, pokeID: socket.pokeID, x: socket.x, y: socket.y });
 });
 
 TC.on('chat', function (socket, data) {
@@ -45,12 +45,19 @@ TC.on('chat', function (socket, data) {
 TC.on('game.move', function (socket, data) {
   var offset = { x: 0, y: 0 };
   switch (data.direction) {
-    case 'left':  offset.x = -32; break;
-    case 'right': offset.x = +32; break;
-    case 'up':    offset.y = -32; break;
-    case 'down':  offset.y = +32; break;
+    case 'left':  offset.x = -16; break;
+    case 'right': offset.x = +16; break;
+    case 'up':    offset.y = -16; break;
+    case 'down':  offset.y = +16; break;
   }
-  socket.x = socket.x + offset.x;
-  socket.y = socket.y + offset.y;
-  TC.broadcast('game.player.move', { username: socket.username, x: socket.x, y: socket.y });
+  if (socket.x + offset.x > 16 && socket.x + offset.x < 608 &&
+      socket.y + offset.y > 32 && socket.y + offset.y < 608) {
+    socket.x = socket.x + offset.x;
+    socket.y = socket.y + offset.y;
+    TC.broadcast('game.player.move', {
+      username: socket.username,
+      x: socket.x,
+      y: socket.y
+    });
+  }
 });

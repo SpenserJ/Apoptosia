@@ -32,11 +32,11 @@ TC.on('login', function (socket, data) {
 
   socket.username = data.username;
   socket.pokeID = Math.floor(Math.random() * 155 + 1);
-  socket.x = 320;
-  socket.y = 320;
+  socket.x = Math.floor(Math.random() * 33 + 1) * 16 + 3;
+  socket.y = Math.floor(Math.random() * 33 + 1) * 16 + 4;
   socket.id = socket.username;
   players[socket.username] = socket;
-  socket.emit('login.successful');
+  socket.emit('login.successful', { id: socket.id });
   TC.broadcast('chat.member.joined', { username: socket.username, id: socket.id });
   TC.broadcast('game.player.joined', { username: socket.username, pokeID: socket.pokeID, x: socket.x, y: socket.y, id: socket.id });
 });

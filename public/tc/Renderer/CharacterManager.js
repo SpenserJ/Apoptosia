@@ -8,7 +8,9 @@
   };
 
   CharacterManager.prototype.createCharacter = function createCharacter(options) {
-  console.log(options);
+    if (options.username === tc.Authentication.username) {
+      options.player = true;
+    }
     this.Characters[options.id] = new this.CharacterClass(options);
     return this.Characters[options.id];
   };

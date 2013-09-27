@@ -4,11 +4,18 @@
     this.Characters = {};
 
     tc.Events.on('IO.game.player.joined', [this, this.createCharacter]);
+    tc.Events.on('IO.game.player.left', [this, this.removeCharacter]);
   };
 
   CharacterManager.prototype.createCharacter = function createCharacter(options) {
+  console.log(options);
     this.Characters[options.id] = new this.CharacterClass(options);
     return this.Characters[options.id];
+  };
+
+  CharacterManager.prototype.removeCharacter = function removeCharacter(options) {
+    this.Characters[options.id].hide();
+    delete this.Characters[options.id];
   };
 
   CharacterManager.prototype.get = function get(id) {

@@ -9,6 +9,7 @@
   Renderer.prototype.loaded = function loaded() {
     var self = this;
 
+    tc.Events.trigger('Renderer.loaded');
     self.engine.state.set(self.engine.state.PLAY, new self.PlayScreen());
     self.engine.sys.gravity = 0;
     self.engine.sys.pauseOnBlur = false;
@@ -43,7 +44,6 @@
       self.engine.levelDirector.loadLevel("area01");
       self.engine.entityPool.add("player", self.Entity.Player);
       self.engine.entityPool.add("npc", self.Entity.Pokemon);
-      self.engine.entityPool.newInstanceOf('npc', 320, 320, 93);
     },
     
     onDestroyEvent: function() {

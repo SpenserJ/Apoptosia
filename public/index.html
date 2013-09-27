@@ -14,7 +14,7 @@
   <!-- Canvas placeholder -->
   <div id="screen"></div>
 
-  <div id="authentication" data-bind="visible: !authentication.authenticated(), with: authentication">
+  <!--<div id="authentication" data-bind="visible: !authentication.authenticated(), with: authentication">
     <p>Please choose a username!</p>
     <input type="text" id="login-name" data-bind="value: username, valueUpdate: 'afterkeyup', returnAction: login">
   </div>
@@ -24,7 +24,7 @@
       <p class="message" data-bind="text: $data.message"></p>
     </div>
     <input type="text" id="chat-input" data-bind="value: inputMessage, valueUpdate: 'afterkeyup', returnAction: sendMessage">
-  </div>
+  </div>-->
   <script src="/socket.io/socket.io.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
@@ -33,16 +33,22 @@
   <!-- melonJS Library -->
   <script type="text/javascript" src="/rendering/melonJS-0.9.8-min.js"></script>
   <script type="text/javascript" src="/rendering/plugins/debugPanel.js"></script>
-  <script type="text/javascript" src="/rendering/game.js"></script>
-  <script type="text/javascript" src="/rendering/resources.js"></script>
-  <script type="text/javascript" src="/rendering/entities/entities.js"></script>
-  <script type="text/javascript" src="/rendering/screens/title.js"></script>
-  <script type="text/javascript" src="/rendering/screens/play.js"></script>
+  <script src="/js/socket.js"></script>
+  <script src="/tc/TuringCompete.js"></script>
+  <script src="/tc/Events.js"></script>
+  <script src="/tc/Renderer.js"></script>
+  <script src="/tc/Renderer/CharacterManager.js"></script>
+  <script src="/tc/Renderer/Entity.Pokemon.js"></script>
+  <script src="/tc/Renderer/Entity.Player.js"></script>
+  <!--
+  <script src="/js/authentication.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/turingcompete.js"></script>
+  -->
   <!-- Bootstrap & Mobile optimization tricks -->
   <script type="text/javascript">
     window.onReady(function onReady() {
-      game.onload();
-
       // Mobile browser hacks
       if (me.sys.isMobile && !navigator.isCocoonJS) {
         // Prevent the webview from moving on a swipe
@@ -73,10 +79,5 @@
     });
   </script>
 
-  <script src="/js/socket.js"></script>
-  <script src="/js/authentication.js"></script>
-  <script src="/js/chat.js"></script>
-  <script src="/js/player.js"></script>
-  <script src="/js/turingcompete.js"></script>
 </body>
 </html>

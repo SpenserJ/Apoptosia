@@ -1,7 +1,7 @@
 var TCModel = function TCModel() {
   this.connected = ko.observable(false);
-  this.chat = new ChatModel();
-  this.authentication = new AuthenticationModel();
+  //this.chat = new ChatModel();
+  //this.authentication = new AuthenticationModel();
 };
 
 var tcKnockout = new TCModel();

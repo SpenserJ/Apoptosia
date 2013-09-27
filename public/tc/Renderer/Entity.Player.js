@@ -5,7 +5,7 @@
       me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     },
 
-    update: function() {
+/*    update: function() {
       var distance = this.distanceToPoint(this.destination);
       if (distance > 1) {
         return this.parent();
@@ -21,7 +21,7 @@
         socket.emit('game.move', { direction: 'down' });
       }
       return this.parent();
-    }
+    }*/
   });
 
   tc.Renderer.loadEntityType('Player', Player);

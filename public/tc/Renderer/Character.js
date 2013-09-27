@@ -1,40 +1,55 @@
 (function () {
-  var Character = function Character(options) {
-    this.entity = me.entityPool.newInstanceOf('npc', options.x, options.y, options.pokeID);
-    this.show();
-    if (options.player === true) {
-      tc.Input.bindKey(tc.Input.Keys.W, [this, this.moveUp]);
-      tc.Input.bindKey(tc.Input.Keys.S, [this, this.moveDown]);
-      tc.Input.bindKey(tc.Input.Keys.A, [this, this.moveLeft]);
-      tc.Input.bindKey(tc.Input.Keys.D, [this, this.moveRight]);
-    }
-  };
+  var Character = Class({
+    construct: function construct(options) {
+      this.pos = { x: options.x, y: options.y };
+      this.entity = me.entityPool.newInstanceOf('npc', 0, 0, options.pokeID);
+      var enginePosition = this.enginePosition();
+      this.entity.pos.x = enginePosition.x - this.entity.hWidth;
+      this.entity.pos.y = enginePosition.y - this.entity.hHeight;
+      this.show();
+    },
 
-  Character.prototype.show = function show() {
-    me.game.add(this.entity, 2);
-    me.game.sort();
-  };
+    enginePosition: function enginePosition(pos) {
+      if (typeof pos === 'undefined') { pos = this.pos; }
+      return {
+        x: pos.x * 16 + this.entity.hWidth,
+        y: pos.y * 16 + this.entity.hHeight
+      };
+    },
 
-  Character.prototype.hide = function hide() {
-    me.game.remove(this.entity);
-    me.game.sort();
-  };
+    show: function show() {
+      me.game.add(this.entity, 2);
+      me.game.sort();
+    },
 
-  Character.prototype.moveUp = function moveUp() {
-    console.log('Move up');
-  };
+    hide: function hide() {
+      me.game.remove(this.entity);
+      me.game.sort();
+    },
 
-  Character.prototype.moveDown = function moveDown() {
-    console.log('Move down');
-  };
+    move: function move(direction) {
+      if (['up', 'down', 'left', 'right'].indexOf(direction) === -1) { return; }
 
-  Character.prototype.moveLeft = function moveLeft() {
-    console.log('Move left');
-  };
+           if (direction === 'up')    { this.pos.y -= 1; }
+      else if (direction === 'down')  { this.pos.y += 1; }
+      else if (direction === 'left')  { this.pos.x -= 1; }
+      else if (direction === 'right') { this.pos.x += 1; }
+      this.updatePosition(this.pos);
+    },
 
-  Character.prototype.moveRight = function moveRight() {
-    console.log('Move right');
-  };
+    updatePosition: function updatePosition(pos) {
+      this.entity.destination.push(this.enginePosition(pos));
+      this.entity.updateMovement();
+    },
+
+    setAnimation: function setAnimation(name, nextAnimation) {
+      if (arguments.length > 1) {
+        console.log('TCClient.Renderer.Character.setAnimation() has not been tested with two animations');
+      }
+      this.entity.renderable.setCurrentAnimation.apply(this.entity.renderable, arguments);
+      tc.Renderer.engine.game.sort();
+    },
+  });
 
   tc.Renderer.CharacterManager.CharacterClass = Character;
 }());

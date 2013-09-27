@@ -9,7 +9,7 @@
           image: "pokemon",
         };
       this.parent(x, y, settings);
-      this.destination = { x: this.pos.x + this.hWidth, y: this.pos.y + this.hHeight };
+      this.destination = [];//{ x: this.pos.x + this.hWidth, y: this.pos.y + this.hHeight };
 
       function getAnimation(direction) {
         var offset = 0;
@@ -30,33 +30,39 @@
       this.renderable.setCurrentAnimation("still");
     },
 
-    move: function(x, y) {
-      this.destination = { x: x + this.hWidth, y: y + this.hHeight };
+    calculateVelocity: function calculateVelocity(pos) {
+      var angle = this.angleToPoint(pos)
+        , distance = this.distanceToPoint(pos);
 
-      var angle = this.angleToPoint(this.destination);
-      var distance = this.distanceToPoint(this.destination);
       if (distance < 1) {
-        this.vel.x = 0;
-        this.vel.y = 0;
-      } else {
-        this.vel.x = Math.cos(angle);
-        this.vel.y = Math.sin(angle);
-        var minAngle = Math.PI / 4;
-        var animation =  (-minAngle < angle && angle < minAngle) ? 'right' :
-                         (-minAngle*3 < angle && angle < -minAngle) ? 'up' :
-                         (minAngle < angle && angle < minAngle*3) ? 'down' :
-                         (minAngle*3 < angle || angle < -minAngle*3) ? 'left' :
-                         'still';
-        this.renderable.setCurrentAnimation(animation);
+        return { x: 0, y: 0 };
       }
+      return { x: Math.cos(angle), y: Math.sin(angle) };
+    },
+
+    stop: function stop() {
+      this.vel.x = this.vel.y = 0;
       this.updateMovement();
     },
 
-    update: function() {
-      var distance = this.distanceToPoint(this.destination);
+    update: function update() {
+      if (this.destination.length === 0) { this.stop(); return false; }
+      var destination = this.destination[0]
+        , distance = this.distanceToPoint(destination);
       if (distance < 1) {
-        this.vel.x = this.vel.y = 0;
+        this.destination.shift();
+        return this.update();
       }
+
+      this.vel = this.calculateVelocity(destination);
+      var angle = this.angleToPoint(destination)
+        , minAngle = Math.PI / 4
+        , animation =  (-minAngle < angle && angle < minAngle) ? 'right' :
+                       (-minAngle*3 < angle && angle < -minAngle) ? 'up' :
+                       (minAngle < angle && angle < minAngle*3) ? 'down' :
+                       (minAngle*3 < angle || angle < -minAngle*3) ? 'left' :
+                       'still';
+      this.renderable.setCurrentAnimation(animation);
 
       this.updateMovement();
 

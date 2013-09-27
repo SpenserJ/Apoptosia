@@ -40,5 +40,9 @@
     }
   };
 
+  IO.prototype.emit = function emit(event, data) {
+    this.socket.emit(event, data);
+  };
+
   tc.LoadModule(IO);
 }());

@@ -1,13 +1,5 @@
 var players = {};
 
-players.SpenserJ = {
-  username: 'SpenserJ',
-  pokeID: 4,
-  x: 320,
-  y: 320,
-  id: 'wewt',
-};
-
 TC.on('connection', function (socket) {
   socket.emit('version', { version: '0.0.1' });
   var keys = Object.keys(players), i;

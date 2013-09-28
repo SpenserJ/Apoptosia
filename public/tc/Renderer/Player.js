@@ -7,12 +7,12 @@
       tc.Input.bindKey(tc.Input.Keys.D, [this, this.keyMovement]);
     },
 
-    keyMovement: function (bindType, action, key) {
-      if (action === 'up') {
+    keyMovement: function (bindType, key) {
+      if (bindType === 'keyup') {
         if (this.entity.destination.length > 1) {
           this.entity.destination.slice(0, 1);
         }
-      } else if (action !== 'down') { return; }
+      } else if (bindType !== 'keydown') { return; }
       var direction;
       switch (key) {
         case tc.Input.Keys.W: direction = 'up';    break;

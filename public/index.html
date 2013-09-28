@@ -13,6 +13,13 @@
 <body>
   <!-- Canvas placeholder -->
   <div id="screen"></div>
+  <div id="windows">
+    <div id="chat" class="draggable">
+      <div class="titlebar">Chatbox</div>
+      Thar be the chatbox!<br />
+      <input type="text" value="I don't work. Go away!">
+    </div>
+  </div>
 
   <!--<div id="authentication" data-bind="visible: !authentication.authenticated(), with: authentication">
     <p>Please choose a username!</p>
@@ -35,11 +42,13 @@
   <script type="text/javascript" src="/rendering/melonJS-0.9.8-min.js"></script>
   <script type="text/javascript" src="/rendering/plugins/debugPanel.js"></script>
   <script type="text/javascript" src="/rendering/mobileOptimization.js"></script>
+
+  <!-- Turing Compete -->
   <script src="/tc/TuringCompete.js"></script>
   <script src="/tc/Events.js"></script>
   <script src="/tc/Socket.js"></script>
+  <script src="/tc/Input.js"></script>
   <script src="/tc/Renderer.js"></script>
-  <script src="/tc/Renderer/Input.js"></script>
   <script src="/tc/Renderer/CharacterManager.js"></script>
   <script src="/tc/Renderer/Character.js"></script>
   <script src="/tc/Renderer/Player.js"></script>
@@ -47,6 +56,9 @@
   <script src="/tc/Renderer/Entity.Player.js"></script>
   <script src="/tc/Authentication.js"></script>
   <script src="/tc/ReloadOnReconnect.js"></script>
+
+  <!-- UI Enhancements -->
+  <script src="/js/draggable.js"></script>
   <!--
   <script src="/js/authentication.js"></script>
   <script src="/js/chat.js"></script>

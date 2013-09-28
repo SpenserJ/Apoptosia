@@ -7,7 +7,7 @@ var server = new ServerSandbox(function() {
   host.start();
 });
 
-server.sandboxedServer.scope.TC.broadcast = function broadcast(event, data) {
+server.sandboxedServer.scope.AP.broadcast = function broadcast(event, data) {
   console.log('Broadcasting ' + event, data);
   host.web.io.sockets.emit(event, data);
 };

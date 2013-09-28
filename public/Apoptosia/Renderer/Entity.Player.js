@@ -1,5 +1,5 @@
 (function () {
-  var Player = tc.Renderer.Entity.Pokemon.extend({
+  var Player = ap.Renderer.Entity.Pokemon.extend({
     init: function(x, y, pokeID) {
       this.parent(x, y, pokeID);
       me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -24,5 +24,5 @@
     }*/
   });
 
-  tc.Renderer.loadEntityType('Player', Player);
+  ap.Renderer.loadEntityType('Player', Player);
 }());

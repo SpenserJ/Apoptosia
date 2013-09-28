@@ -74,5 +74,5 @@
     },
   });
 
-  tc.Renderer.loadEntityType('Pokemon', Pokemon);
+  ap.Renderer.loadEntityType('Pokemon', Pokemon);
 }());

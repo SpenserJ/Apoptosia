@@ -1,7 +1,7 @@
-var TuringCompete = require('./turingCompete');
+var Apoptosia = require('./Apoptosia');
 
 module.exports = {
   console: console,
 
-  TC: new TuringCompete.Server()
+  AP: new Apoptosia.Server()
 };

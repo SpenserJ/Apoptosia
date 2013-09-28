@@ -1,5 +1,5 @@
 {
-  "name": "TuringCompete",
+  "name": "Apoptosia",
   "version": "0.0.1",
   "description": "",
   "main": "host.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SpenserJ/TuringCompete.git"
+    "url": "https://bitbucket.org/SpenserJ/apoptosia.git"
   },
   "author": "Spenser Jones <hello@spenserj.com>",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/SpenserJ/TuringCompete/issues"
+    "url": "https://bitbucket.org/SpenserJ/apoptosia/issues"
   },
   "dependencies": {
     "express": "~3.4.0",

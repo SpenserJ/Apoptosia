@@ -1,15 +1,15 @@
 (function () {
   var Renderer = function Renderer() {
-    console.log('TCClient.Renderer()');
+    console.log('ApoptosiaClient.Renderer()');
     this.Entity = {};
 
-    tc.Events.on('ready', [this, this.initialize]);
+    ap.Events.on('ready', [this, this.initialize]);
   };
 
   Renderer.prototype.loaded = function loaded() {
     var self = this;
 
-    tc.Events.trigger('Renderer.loaded');
+    ap.Events.trigger('Renderer.loaded');
     self.engine.state.set(self.engine.state.PLAY, new self.PlayScreen());
     self.engine.sys.gravity = 0;
     self.engine.sys.pauseOnBlur = false;
@@ -40,7 +40,7 @@
 
   Renderer.prototype.PlayScreen = me.ScreenObject.extend({
     onResetEvent: function() {
-      var self = tc.Renderer;
+      var self = ap.Renderer;
       self.engine.levelDirector.loadLevel("area01");
       self.engine.entityPool.add("player", self.Entity.Player);
       self.engine.entityPool.add("npc", self.Entity.Pokemon);
@@ -61,5 +61,5 @@
     this.Entity[name] = entity;
   };
 
-  tc.LoadModule(Renderer);
+  ap.LoadModule(Renderer);
 }());

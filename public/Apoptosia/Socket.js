@@ -1,9 +1,9 @@
 (function () {
   var IO = function IO() {
-    console.log('TCClient.IO()');
+    console.log('ApoptosiaClient.IO()');
     this.watchedEvents = [];
-    tc.Events.on('Renderer.loaded', [this, this.connect]);
-    tc.Events.on('Events.on', [this, this.on]);
+    ap.Events.on('Renderer.loaded', [this, this.connect]);
+    ap.Events.on('Events.on', [this, this.on]);
   };
 
   IO.prototype.connect = function connect() {
@@ -17,10 +17,10 @@
           self.on(eventInfo[0], eventInfo[1]);
         }
       }
-      tc.Events.trigger('IO.connect');
+      ap.Events.trigger('IO.connect');
     });
     self.socket.on('disconnect', function () {
-      tc.Events.trigger('IO.disconnect');
+      ap.Events.trigger('IO.disconnect');
     });
   };
 
@@ -35,7 +35,7 @@
     if (this.watchedEvents.indexOf(event) === -1) {
       this.watchedEvents.push(event);
       this.socket.on(event.substr(3), function (data) {
-        tc.Events.trigger(event, data);
+        ap.Events.trigger(event, data);
       });
     }
   };
@@ -44,5 +44,5 @@
     this.socket.emit(event, data);
   };
 
-  tc.LoadModule(IO);
+  ap.LoadModule(IO);
 }());

@@ -44,12 +44,12 @@
 
     setAnimation: function setAnimation(name, nextAnimation) {
       if (arguments.length > 1) {
-        console.log('TCClient.Renderer.Character.setAnimation() has not been tested with two animations');
+        console.log('ApoptosiaClient.Renderer.Character.setAnimation() has not been tested with two animations');
       }
       this.entity.renderable.setCurrentAnimation.apply(this.entity.renderable, arguments);
-      tc.Renderer.engine.game.sort();
+      ap.Renderer.engine.game.sort();
     },
   });
 
-  tc.Renderer.CharacterManager.CharacterClass = Character;
+  ap.Renderer.CharacterManager.CharacterClass = Character;
 }());

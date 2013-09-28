@@ -1,8 +1,8 @@
-var TCServer = function TCServer() {
+var APServer = function APServer() {
   this.eventBindings = {};
 };
 
-TCServer.prototype.on = function on(event, callback) {
+APServer.prototype.on = function on(event, callback) {
   console.log('Binding to ' + event);
   if (typeof this.eventBindings[event] === 'undefined') {
     this.eventBindings[event] = [];
@@ -10,4 +10,4 @@ TCServer.prototype.on = function on(event, callback) {
   this.eventBindings[event].push(callback);
 };
 
-module.exports.Server = TCServer;
+module.exports.Server = APServer;

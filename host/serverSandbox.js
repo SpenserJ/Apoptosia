@@ -8,12 +8,12 @@ var Server = function Server(callback) {
 };
 
 Server.prototype.trigger = function trigger(event, socket, data) {
-  var TC = this.sandboxedServer.scope.TC
+  var AP = this.sandboxedServer.scope.AP
     , i;
-  if (typeof TC.eventBindings[event] !== 'undefined') {
-    var events = TC.eventBindings[event];
+  if (typeof AP.eventBindings[event] !== 'undefined') {
+    var events = AP.eventBindings[event];
     for (i = 0; i < events.length; i++) {
-      events[i].call(TC, socket, data);
+      events[i].call(AP, socket, data);
     }
   } 
 };

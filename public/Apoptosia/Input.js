@@ -1,16 +1,16 @@
 (function () {
   var Input = function Input() {
-    console.log('TCClient.Input()');
+    console.log('ApoptosiaClient.Input()');
     this.bindings = { keydown: {}, keyup: {}, mouse: {} };
     this.Keys = me.input.KEY;
     this.ignoreEvents = false;
-    tc.Events.on('ready', [this, this.initialize]);
+    ap.Events.on('ready', [this, this.initialize]);
   };
 
   Input.prototype.initialize = function initialize() {
     var self = this;
-    $(document).keydown($.proxy(tc.Input.inputCallback, tc.Input));
-    $(document).keyup  ($.proxy(tc.Input.inputCallback, tc.Input));
+    $(document).keydown($.proxy(ap.Input.inputCallback, ap.Input));
+    $(document).keyup  ($.proxy(ap.Input.inputCallback, ap.Input));
     $('input').on('focus', function () { self.ignoreEvents = true; })
               .on('blur',  function () { self.ignoreEvents = false; });
   };
@@ -51,5 +51,5 @@
     this.ignoreEvents = ignore;
   };
 
-  tc.LoadModule(Input);
+  ap.LoadModule(Input);
 }());

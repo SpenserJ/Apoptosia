@@ -1,6 +1,6 @@
 (function () {
   var Events = function Events() {
-    console.log('TCClient.Events()');
+    console.log('ApoptosiaClient.Events()');
     this.callbacks = {};
   };
 
@@ -28,5 +28,5 @@
     }
   };
 
-  tc.LoadModule(Events);
+  ap.LoadModule(Events);
 }());

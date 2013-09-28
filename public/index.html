@@ -14,10 +14,13 @@
   <!-- Canvas placeholder -->
   <div id="screen"></div>
   <div id="windows">
-    <div id="chat" class="draggable">
+    <div id="chat" class="draggable" data-bind="visible: authenticated, with: chat">
       <div class="titlebar">Chatbox</div>
-      Thar be the chatbox!<br />
-      <input type="text" value="I don't work. Go away!">
+      <div id="chat-messages" data-bind="foreach: messages">
+        <span class="username" data-bind="text: $data.username">&nbsp;</span> says:
+        <p class="message" data-bind="text: $data.message"></p>
+      </div>
+      <input type="text" id="chat-input" data-bind="value: inputMessage, valueUpdate: 'afterkeyup', returnAction: sendMessage, APInputSupport: inputMessage">
     </div>
   </div>
 
@@ -25,13 +28,7 @@
     <p>Please choose a username!</p>
     <input type="text" id="login-name" data-bind="value: username, valueUpdate: 'afterkeyup', returnAction: login">
   </div>
-  <div id="chat" data-bind="visible: authentication.authenticated, with: chat">
-    <div id="chat-messages" data-bind="foreach: messages">
-      <span class="username" data-bind="text: $data.username">&nbsp;</span> says:
-      <p class="message" data-bind="text: $data.message"></p>
-    </div>
-    <input type="text" id="chat-input" data-bind="value: inputMessage, valueUpdate: 'afterkeyup', returnAction: sendMessage">
-  </div>-->
+-->
   <script src="/socket.io/socket.io.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
@@ -59,9 +56,11 @@
 
   <!-- UI Enhancements -->
   <script src="/js/draggable.js"></script>
+  <script src="/js/Apoptosia.KO.js"></script>
+  <script src="/js/Apoptosia.KO.Input.js"></script>
+  <script src="/js/chat.js"></script>
   <!--
   <script src="/js/authentication.js"></script>
-  <script src="/js/chat.js"></script>
   <script src="/js/player.js"></script>
   <script src="/js/turingcompete.js"></script>
   -->

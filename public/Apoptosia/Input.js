@@ -11,8 +11,8 @@
     var self = this;
     $(document).keydown($.proxy(ap.Input.inputCallback, ap.Input));
     $(document).keyup  ($.proxy(ap.Input.inputCallback, ap.Input));
-    $('input').on('focus', function () { self.ignoreEvents = true; })
-              .on('blur',  function () { self.ignoreEvents = false; });
+    $('input').focus(function () { console.log('focus');self.ignoreEvents = true; })
+              .blur (function () { self.ignoreEvents = false; });
   };
 
   Input.prototype.bindKey = function bindKey(key, callback) {

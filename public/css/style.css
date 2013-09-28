@@ -35,14 +35,24 @@ body {
 #windows > div {
   position: absolute;
   top: 0;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  background: lightslategray;
+  width: 256px;
+}
+
+#windows > div > .content,
+#windows > div > .titlebar {
+  padding: 8px;
+}
+
+#windows > div > .titlebar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 #chat {
-  width: 256px;
-  border-radius: 4px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  padding: 8px;
 }
+
 
 #chat-input {
   width: 252px;
